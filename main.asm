@@ -379,36 +379,36 @@ GetCounterDirection:
 ; [corrupt] a, b
 ; 39 cycles (worst case)
 InputHandler:
-    ldh a, [JoypadState] ; 3
-    bit PADB_RIGHT, a    ; 2
-    jr nz, .right        ; 3|2
-    bit PADB_LEFT, a     ;   2
-    jr nz, .left         ;   3|2
-    bit PADB_UP, a       ;     2
-    jr nz, .up           ;     3|2
-    bit PADB_DOWN, a     ;       2
-    jr nz, .down         ;       3|2
-    jr .noChange         ;         3
+    ldh a, [JoypadState]    ; 3
+    bit PADB_RIGHT, a       ; 2
+    jr nz, .right           ; 3|2
+    bit PADB_LEFT, a        ;   2
+    jr nz, .left            ;   3|2
+    bit PADB_UP, a          ;     2
+    jr nz, .up              ;     3|2
+    bit PADB_DOWN, a        ;       2
+    jr nz, .down            ;       3|2
+    jr .noChange            ;         3
 .right
-    ldh a, [direction]   ; 3
-    cp LEFT              ; 2
-    jr z, .noChange      ; 3|2
-    ld a, RIGHT          ;   2
-    jr .changeDirection  ;   3
+    ldh a, [prevDirection]  ; 3
+    cp LEFT                 ; 2
+    jr z, .noChange         ; 3|2
+    ld a, RIGHT             ;   2
+    jr .changeDirection     ;   3
 .left
-    ldh a, [direction]
+    ldh a, [prevDirection]
     cp RIGHT
     jr z, .noChange
     ld a, LEFT
     jr .changeDirection
 .up
-    ldh a, [direction]
+    ldh a, [prevDirection]
     cp DOWN
     jr z, .noChange
     ld a, UP
     jr .changeDirection
 .down
-    ldh a, [direction]
+    ldh a, [prevDirection]
     cp UP
     jr z, .noChange
     ld a, DOWN
@@ -562,7 +562,7 @@ TilesetEnd:
 
 ; 576 B
 BGMap:
-db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 11, 12, 12, 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 11, 12, 12, 12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 db 22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 db 29,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
